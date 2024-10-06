@@ -27,6 +27,9 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Update npm to latest version
+        run: npm install -g npm@10.9.0
+
       - name: Zip artifact for deployment
         run: zip release.zip .next package.json package-lock.json -r
 
