@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import localFont from "next/font/local";
 import styles from "@/styles/Home.module.css";
+import { useState } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,6 +16,13 @@ const geistMono = localFont({
 });
 
 export default function Home() {
+  const [name, setName] = useState("");
+  function onSend() {
+    fetch("/api/hello", {
+      method: "POST",
+      body: JSON.stringify({ name: name }),
+    }).then((res) => alert(res.status));
+  }
   return (
     <>
       <Head>
@@ -40,6 +48,8 @@ export default function Home() {
               Get started by editing <code>pages/index.js</code>.
             </li>
             <li>Save and see your changes instantly.</li>
+            <input name="name" onChange={(e) => setName(e.target.value)} />
+            <button onClick={onSend}>Send</button>
           </ol>
 
           <div className={styles.ctas}>
